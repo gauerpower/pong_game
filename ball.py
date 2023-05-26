@@ -20,6 +20,8 @@ class Ball(Turtle):
         self.x_move *= -1
 
     def reset(self):
+        self.hideturtle()
         self.goto(0, 0)
+        self.showturtle()
         self.x_move = random.choice([10, -10])
         self.y_move = random.choice([10, -10])

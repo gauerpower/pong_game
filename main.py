@@ -1,6 +1,7 @@
 from turtle import Screen, Turtle
 from paddle import Paddle
 from ball import Ball
+from scoreboard import Scoreboard
 import time
 
 scr = Screen()
@@ -12,6 +13,7 @@ scr.tracer()
 left_paddle = Paddle(x_coordinate = -350)
 right_paddle = Paddle(x_coordinate = 350)
 ball = Ball()
+scoreboard = Scoreboard()
 
 
 scr.listen()
@@ -23,7 +25,7 @@ scr.onkey(fun = left_paddle.down, key = "s")
 game_going = True
 
 while game_going:
-    time.sleep(0.1)
+    time.sleep(0.05)
     scr.update()
     ball.move()
 
@@ -35,8 +37,14 @@ while game_going:
 
     if ball.xcor() > 380:
         ball.reset()
+        scoreboard.left_gets_a_point()
 
     if ball.xcor() < -380:
         ball.reset()
+        scoreboard.right_gets_a_point()
+    
+    if scoreboard.left_score == 7 or scoreboard.right_score == 7:
+        game_going = False
+        scoreboard.game_over()
 
 scr.exitonclick()
